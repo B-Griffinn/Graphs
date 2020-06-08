@@ -3,36 +3,51 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
+
 class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
+
     def __init__(self):
+        # field vertices that contains a dictionary mapping vertex labels to edges.
         self.vertices = {}
 
     def add_vertex(self, vertex_id):
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        # TODO
+        # add a set to our dictionary using the vertext_id
+        self.vertices[vertex_id] = set()  # set of edges from this vert
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+            # add edge between 2 verts
+            # add 1 vert id to a set() ~> just like an adjaency list
+            self.vertices[v1].add(v2)  # v2 is added as a neighbor to v1
+            # self.vertices[v2].add(v1)  # v1 is added as a neighbor to v1
+        else:
+            print("Vertext connection does not exist.")
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        # TODO
+        # all neighbors are stored in the vewrtex_id's set()
+        return self.vertices[vertex_id]
 
+    ########### PART TWO ###########
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # TODO
 
     def dft(self, starting_vertex):
         """
@@ -76,6 +91,7 @@ class Graph:
         """
         pass  # TODO
 
+
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
     # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
@@ -96,6 +112,7 @@ if __name__ == '__main__':
     graph.add_edge(3, 5)
     graph.add_edge(2, 3)
     graph.add_edge(4, 6)
+    graph.add_edge(0, 4)
 
     '''
     Should print:
