@@ -103,7 +103,7 @@ class Graph:
 
     def dft_recursive(self, vertex, visited=None):
         """
-        visted can not be a set() bc 
+        visted can not be a set() bc
         Print each vertex in depth-first order
         beginning from starting_vertex.
         This should be done using recursion.
@@ -117,6 +117,7 @@ class Graph:
 
         # base case needed as well - how do we know we are done?
         # when we have no more neighbors
+        # no explicit base case here bc we are handling that in our for loop below `self.dft_recursive(neighbor, visited)`
 
         # track visited nodes
         visited.add(vertex)
@@ -141,7 +142,41 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # Create an empty queue...
+        qq = Queue()
+
+        # ...and enqueue A PATH TO the starting vertex ID
+        qq.enqueue([starting_vertex])
+
+        # Create a Set to store visited vertices
+        visited = set()
+
+        # While the queue is not empty...
+        while qq.size() > 0:
+            # Dequeue the first PATH
+            path = qq.dequeue()
+            print(path)
+
+            # Grab the last vertex from the PATH
+            last_vertex = path[-1]
+            print(last_vertex)
+
+            # If that vertex has not been visited...
+            if last_vertex not in visited:
+                # CHECK IF IT'S THE TARGET
+                if last_vertex == destination_vertex:
+                    # IF SO, RETURN PATH
+                    return path
+                    # Mark it as visited...
+                    visited.add(last_vertex)
+
+            # Then add A PATH TO its neighbors to the back of the queue
+            for next_vert in self.get_neighbors(last_vertex):
+                # COPY THE PATH
+                new_path = list(path)
+                # APPEND THE NEIGHOR TO THE BACK
+                new_path.append(next_vert)
+                qq.enqueue(new_path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
