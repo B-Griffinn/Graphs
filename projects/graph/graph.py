@@ -43,18 +43,63 @@ class Graph:
 
     ########### PART TWO ###########
     def bft(self, starting_vertex):
+        print("=" * 25)
+        print("  BFT ")
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        # TODO
+        # TODO - use a QUEUE
+        # Create an empty queue and enqueue the starting vertex ID
+        storage = Queue()
+        storage.enqueue(starting_vertex)
+
+        # Create a Set to store visited vertices
+        visited = set()
+
+        # While the queue is not empty...
+        while storage.size() > 0:
+            # Dequeue the first vertex
+            dqed_vert = storage.dequeue()
+            # If that vertex has not been visited...
+            if dqed_vert not in visited:
+                # Visit it
+                print(dqed_vert)
+                # Mark it as visited...
+                visited.add(dqed_vert)
+                # Then add all of its neighbors to the back of the queue
+                for next_vert in self.get_neighbors(dqed_vert):
+                    storage.enqueue(next_vert)
+        print("=" * 25)
 
     def dft(self, starting_vertex):
+        print("=" * 25)
+        print("  DFT ")
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # TODO - use a STACK
+        # create and empty stack and set to a var
+        storage = Stack()
+        # push beginning vertex to top of stack
+        storage.push(starting_vertex)
+        # create a visited set() var
+        visited = set()
+        # while the stack is not empty...
+        while storage.size() > 0:
+            # pop the top item
+            popped_vert = storage.pop()
+            # if that vertex has not been visited...
+            if popped_vert not in visited:
+                # visit it
+                print(popped_vert)
+                # mark it as visited...
+                visited.add(popped_vert)
+                # then add all of its neighbors to the top of the stack
+                for next_vert in self.get_neighbors(popped_vert):
+                    storage.push(next_vert)
+        print("=" * 25)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -63,7 +108,7 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # TODO
 
     def bfs(self, starting_vertex, destination_vertex):
         """
