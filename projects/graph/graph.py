@@ -31,7 +31,7 @@ class Graph:
             self.vertices[v1].add(v2)  # v2 is added as a neighbor to v1
             # self.vertices[v2].add(v1)  # v1 is added as a neighbor to v1
         else:
-            print("Vertext connection does not exist.")
+            raise IndexError("Vertext connection does not exist.")
 
     def get_neighbors(self, vertex_id):
         """
@@ -43,8 +43,8 @@ class Graph:
 
     ########### PART TWO ###########
     def bft(self, starting_vertex):
-        print("=" * 25)
-        print("  BFT ")
+        # print("=" * 25)
+        # print("  BFT ")
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
@@ -70,11 +70,11 @@ class Graph:
                 # Then add all of its neighbors to the back of the queue
                 for next_vert in self.get_neighbors(dqed_vert):
                     storage.enqueue(next_vert)
-        print("=" * 25)
+        # print("=" * 25)
 
     def dft(self, starting_vertex):
-        print("=" * 25)
-        print("  DFT ")
+        # print("=" * 25)
+        # print("  DFT ")
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
@@ -99,14 +99,39 @@ class Graph:
                 # then add all of its neighbors to the top of the stack
                 for next_vert in self.get_neighbors(popped_vert):
                     storage.push(next_vert)
-        print("=" * 25)
+        # print("=" * 25)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, vertex, visited=None):
         """
+        visted can not be a set() bc 
         Print each vertex in depth-first order
         beginning from starting_vertex.
-
         This should be done using recursion.
+        """
+        # TODO
+        # initial case needed
+        # if we do not have a visited in place initialize it
+        if visited is None:
+            # add a set() to the visited vertex
+            visited = set()
+
+        # base case needed as well - how do we know we are done?
+        # when we have no more neighbors
+
+        # track visited nodes
+        visited.add(vertex)
+        print(vertex)
+
+        # call the function recursively - on neighbors of not visited
+        for neighbor in self.vertices[vertex]:
+            if neighbor not in visited:
+                self.dft_recursive(neighbor, visited)
+
+    def dfs(self, starting_vertex, destination_vertex):
+        """
+        Return a list containing a path from
+        starting_vertex to destination_vertex in
+        depth-first order.
         """
         # TODO
 
@@ -115,14 +140,6 @@ class Graph:
         Return a list containing the shortest path from
         starting_vertex to destination_vertex in
         breath-first order.
-        """
-        pass  # TODO
-
-    def dfs(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing a path from
-        starting_vertex to destination_vertex in
-        depth-first order.
         """
         pass  # TODO
 
@@ -157,7 +174,7 @@ if __name__ == '__main__':
     graph.add_edge(3, 5)
     graph.add_edge(2, 3)
     graph.add_edge(4, 6)
-    graph.add_edge(0, 4)
+    # graph.add_edge(0, 4)
 
     '''
     Should print:
