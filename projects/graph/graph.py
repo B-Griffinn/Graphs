@@ -134,7 +134,35 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        # TODO
+        # initialize empty list
+        path = []
+        # Create an empty stack and push A PATH TO the starting vertex ID
+        s = Stack()
+        s.push(starting_vertex)
+
+        # Create a Set to store visited vertices
+        visited = set()
+
+        # While the stack is not empty...
+        while s.size() > 0:
+            # pop the first PATH
+            # Grab the last vertex from the PATH
+            vert = s.pop()
+            # If that vertex has not been visited...
+            if vert not in visited:
+                print(vert)
+                # Mark it as visited...
+                visited.add(vert)
+                path.append(vert)
+
+                # CHECK IF IT'S THE TARGET
+                if vert == destination_vertex:
+                    # IF SO, RETURN PATH
+                    return path
+                # Then add A PATH TO its neighbors to the back of the stack
+                for next_vert in self.get_neighbors(vert):
+                    # APPEND THE NEIGHOR TO THE BACK
+                    s.push(next_vert)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -178,7 +206,7 @@ class Graph:
                 new_path.append(next_vert)
                 qq.enqueue(new_path)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -186,7 +214,35 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # TODO
+        # initial case needed
+        # if we do not have a visited in place initialize it
+        if visited is None:
+            # add a set() to the visited vertex
+            visited = set()
+
+        if path is None:
+            path = []
+
+        # base case needed as well - how do we know we are done?
+        # when we have no more neighbors
+        # no explicit base case here bc we are handling that in our for loop below `self.dft_recursive(neighbor, visited)`
+
+        # track visited nodes
+        visited.add(starting_vertex)
+        # copy the path
+        new_path = path + [starting_vertex]
+
+        if starting_vertex == destination_vertex:
+            return new_path
+
+        # call the function recursively - on neighbors of not visited
+        for neighbor in self.vertices[starting_vertex]:
+            if neighbor not in visited:
+                neighbor_path = self.dfs_recursive(
+                    neighbor, destination_vertex, visited, new_path)
+                if neighbor_path:
+                    return neighbor_path
 
 
 if __name__ == '__main__':
