@@ -46,8 +46,6 @@ def earliest_ancestor(ancestors, starting_node):
         # plot second value of tuple in ancestors to the graph
         graph.add_vertex(i[1])
 
-        # graph.add_edge(x[1], x[0]) TODO + add vars == child/ parent for readability and comprehension
-
     # map our edges to their respected nodes using the ancestors list of tuples
     for x in ancestors:
         graph.add_edge(x[1], x[0])

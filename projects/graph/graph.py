@@ -170,11 +170,12 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
+
         # Create an empty queue...
         qq = Queue()
 
         # ...and enqueue A PATH TO the starting vertex ID
-        qq.enqueue([starting_vertex])
+        print(qq.enqueue([starting_vertex]))
 
         # Create a Set to store visited vertices
         visited = set()
@@ -191,12 +192,12 @@ class Graph:
 
             # If that vertex has not been visited...
             if last_vertex not in visited:
+                # Mark it as visited...
+                visited.add(last_vertex)
                 # CHECK IF IT'S THE TARGET
                 if last_vertex == destination_vertex:
                     # IF SO, RETURN PATH
                     return path
-                    # Mark it as visited...
-                    visited.add(last_vertex)
 
             # Then add A PATH TO its neighbors to the back of the queue
             for next_vert in self.get_neighbors(last_vertex):
